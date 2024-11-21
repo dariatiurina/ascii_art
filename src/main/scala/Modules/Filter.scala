@@ -40,8 +40,8 @@ class FilterFlip(axis: Axis) extends FilterASCII {
 class FilterInvert extends FilterGreyScale {
   override def runCommand(): ImageGreyScale = {
     val returnImage = image.getOrElse(throw NoImageInFilter())
-    for (i <- 0 until returnImage.getSize()){
-      for (j <- 0 until returnImage.getRow(i).getSize())
+    for (i <- 0 until returnImage.getSize){
+      for (j <- 0 until returnImage.getRow(i).getSize)
         returnImage.getRow(i).getPixel(j).invert()
     }
     returnImage
@@ -51,8 +51,8 @@ class FilterInvert extends FilterGreyScale {
 class FilterBrightness(brightness: Int) extends FilterGreyScale {
   override def runCommand(): ImageGreyScale = {
     val returnImage = image.getOrElse(throw  NoImageInFilter())
-    for (i <- 0 until returnImage.getSize()) {
-      for (j <- 0 until returnImage.getRow(i).getSize())
+    for (i <- 0 until returnImage.getSize) {
+      for (j <- 0 until returnImage.getRow(i).getSize)
         returnImage.getRow(i).getPixel(j).changeBrightness(brightness)
     }
     returnImage

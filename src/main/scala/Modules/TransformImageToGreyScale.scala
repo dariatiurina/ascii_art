@@ -12,14 +12,14 @@ import DataModels.{
 class TransformImageToGreyScale(imageRGB: ImageRGB) extends CommandType {
   override def runCommand(): ImageGreyScale = {
     val returnImage = ImageGreyScale()
-    for (ind <- 0 until imageRGB.getSize())
+    for (ind <- 0 until imageRGB.getSize)
       returnImage.appendRow(transformRow(imageRGB.getRow(ind)))
     returnImage
   }
 
   private def transformRow(row: ImageRowRGB): ImageRowGreyScale = {
     val returnRow = ImageRowGreyScale()
-    for (ind <- 0 until row.getSize())
+    for (ind <- 0 until row.getSize)
       returnRow.appendPixel(transformPixel(row.getPixel(ind)))
     returnRow
   }

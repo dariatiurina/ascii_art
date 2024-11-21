@@ -15,7 +15,7 @@ abstract class Image[T <: ImageRow[?]](private var rows: List[T]) extends Data {
   def getRow(index: Int): T =
     rows(index)
 
-  def getSize(): Int =
+  def getSize: Int =
     rows.size
 }
 

@@ -20,16 +20,16 @@ class DefaultLinearTransformTable extends TransformTable {
 class DefaultNonLinearTransformTable extends TransformTable {
   override val table: String = "@%#*+=-:. "
   protected val transformRule: List[Range] = List(
-    (0 to 50),
-    (51 to 63),
-    (64 to 70),
-    (71 to 75),
-    (76 to 80),
-    (81 to 87),
-    (88 to 151),
-    (152 to 185),
-    (186 to 220),
-    (221 to 256)
+    0 to 50,
+    51 to 63,
+    64 to 70,
+    71 to 75,
+    76 to 80,
+    81 to 87,
+    88 to 151,
+    152 to 185,
+    186 to 220,
+    221 to 256
   )
 
   override def transform(pixel: PixelGreyScale): PixelASCII = {

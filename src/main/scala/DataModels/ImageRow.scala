@@ -8,7 +8,7 @@ abstract class ImageRow[T <: Pixel](private var pixels: List[T]) extends Data {
   def appendPixel(append_pixel: T): Unit =
     pixels = pixels :+ append_pixel
 
-  def getSize(): Int =
+  def getSize: Int =
     pixels.size
 
   def getPixel(index: Int): T =
