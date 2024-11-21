@@ -1,5 +1,9 @@
-package Main
+import UI.{ASCIIArtController, ASCIIArtView}
 
-@main def main: Unit = {
-  println("Hello there")
+import scala.io.StdIn.readLine
+
+@main def main(args: String*): Unit = {
+  val view = ASCIIArtView()
+  val controller = ASCIIArtController(view)
+  controller.run(args)
 }
