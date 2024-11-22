@@ -8,10 +8,10 @@ import DataModels.{
   ImageRowGreyScale,
   PixelASCII,
   PixelGreyScale,
-  TransformTable
+  TransformationTable
 }
 
-class ConvertToASCII(image: ImageGreyScale, table: TransformTable)
+class ConvertToASCII(image: ImageGreyScale, table: TransformationTable)
     extends CommandType {
   override def runCommand(): ImageASCII = {
     var returnImage = ImageASCII()

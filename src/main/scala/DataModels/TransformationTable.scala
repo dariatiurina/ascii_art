@@ -2,12 +2,12 @@ package DataModels
 
 import Exceptions.NotKnownTransformationTable
 
-abstract class TransformTable {
+abstract class TransformationTable {
   protected val table: String
   def transform(pixel: PixelGreyScale): PixelASCII
 }
 
-class DefaultLinearTransformTable extends TransformTable {
+class DefaultLinearTransformTable extends TransformationTable {
   override val table: String =
     "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
@@ -17,7 +17,7 @@ class DefaultLinearTransformTable extends TransformTable {
   }
 }
 
-class DefaultNonLinearTransformTable extends TransformTable {
+class DefaultNonLinearTransformTable extends TransformationTable {
   override val table: String = "@%#*+=-:. "
   protected val transformRule: List[Range] = List(
     0 to 50,
@@ -45,8 +45,8 @@ class CustomLinearTable(customTable: String)
   override val table: String = customTable
 }
 
-object TransformTable{
-  def apply(tableType: String, parameter: String = ""): TransformTable = {
+object TransformationTable{
+  def apply(tableType: String, parameter: String = ""): TransformationTable = {
     if(tableType == "--table"){
       parameter match
         case "linear" => new DefaultLinearTransformTable()

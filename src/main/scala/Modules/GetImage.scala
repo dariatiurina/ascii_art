@@ -6,14 +6,14 @@ import java.awt.image.BufferedImage
 
 class GetImage(var image: BufferedImage = null) extends CommandType {
   override def runCommand(): ImageRGB = {
-    var returnImage = ImageRGB(List.empty)
+    val returnImage = ImageRGB(List.empty)
     for (i <- 0 until image.getHeight())
       returnImage.appendRow(getPixelRow(i))
     returnImage
   }
 
   private def getPixelRow(row: Int): ImageRowRGB = {
-    var retRow = ImageRowRGB(List.empty)
+    val retRow = ImageRowRGB(List.empty)
     for (i <- 0 until image.getWidth())
       retRow.appendPixel(getPixel(image.getRGB(i, row)))
     retRow

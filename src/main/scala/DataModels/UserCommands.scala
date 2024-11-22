@@ -1,15 +1,15 @@
 package DataModels
 
 import Exceptions.{MoreThanOneImageSource, NoImageInFilter}
-import Modules.{ConvertToASCII, ExportImage, Filter, FilterASCII, FilterGreyScale, Importer}
+import Modules.{ConvertToASCII, ExportImage, ExportToConsole, Filter, FilterASCII, FilterGreyScale, Importer}
 
 class UserCommands {
   private var imageSource: Option[Importer] = None
-  private var exportDestination: List[ExportImage] = List.empty
+  private var exportDestination: List[ExportImage] = List(ExportToConsole())
   private var filters: List[Filter[?]] = List.empty
   private var filterASCII: List[FilterASCII] = List.empty
   private var filterGreyScale: List[FilterGreyScale] = List.empty
-  private var transformTable: TransformTable = DefaultLinearTransformTable()
+  private var transformTable: TransformationTable = DefaultLinearTransformTable()
 
   def addSource(importer: Importer): Unit = {
     if (imageSource.isEmpty)
@@ -32,7 +32,7 @@ class UserCommands {
     imageSource.getOrElse(throw NoImageInFilter()).runCommand()
   }
 
-  def addTransformationTable(table: TransformTable): Unit =
+  def addTransformationTable(table: TransformationTable): Unit =
     transformTable = table
   
   def runFiltersASCII(image: ImageASCII) : ImageASCII = {

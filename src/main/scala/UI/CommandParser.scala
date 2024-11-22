@@ -1,6 +1,6 @@
 package UI
 
-import DataModels.{DefaultLinearTransformTable, ImageASCII, ImageRGB, TransformTable, UserCommands}
+import DataModels.{DefaultLinearTransformTable, ImageASCII, ImageRGB, TransformationTable, UserCommands}
 import Modules.{ConvertToASCII, ExportImage, Filter, ImportImageFromPath, ImportRandomImage, Importer, TransformImageToGreyScale}
 import org.scalactic.Or
 
@@ -26,7 +26,7 @@ class CommandParser(command: Seq[String]) {
         ExportImage.apply(commandCheck, parameter))
     else if (commandCheck.startsWith("--table") || commandCheck.startsWith("--custom-table"))
       userCommandsParsed.addTransformationTable(
-        TransformTable(commandCheck, parameter))
+        TransformationTable(commandCheck, parameter))
     else if (commandCheck.startsWith("--"))
       userCommandsParsed.addFilter(Filter(commandCheck, parameter))
   }
