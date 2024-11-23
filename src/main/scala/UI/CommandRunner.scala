@@ -4,7 +4,7 @@ import DataModels.{ImageASCII, ImageGreyScale, UserCommands}
 import Exceptions.NotValidImport
 import Modules.Converters.{ConvertImageToGreyScale, ConvertImageToASCII}
 
-class CommandRunner(userCommands: UserCommands) {
+class CommandRunner(private val userCommands: UserCommands) {
   def runAll(): Unit = {
     val imageRGB = userCommands
       .returnImageSource()
