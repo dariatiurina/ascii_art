@@ -1,6 +1,6 @@
 package Modules.Importers
 
-import DataModels.{Data, ImageRGB, ImageRowRGB, PixelRGB}
+import DataModels.{ImageRGB, ImageRowRGB, PixelRGB}
 import Exceptions.{NotKnownImageFormat, NotValidImport}
 import Modules.Converters.ConvertBufferedImageToImageRGB
 

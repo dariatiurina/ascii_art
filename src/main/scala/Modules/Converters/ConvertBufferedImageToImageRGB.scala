@@ -1,6 +1,6 @@
 package Modules.Converters
 
-import DataModels.{Data, ImageRGB, ImageRowRGB, PixelRGB}
+import DataModels.{ImageRGB, ImageRowRGB, PixelRGB}
 
 import java.awt.image.BufferedImage
 

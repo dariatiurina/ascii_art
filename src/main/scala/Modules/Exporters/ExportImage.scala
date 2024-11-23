@@ -1,6 +1,6 @@
 package Modules.Exporters
 
-import DataModels.{Data, ImageASCII, ImageRowASCII, PixelASCII}
+import DataModels.{ImageASCII, ImageRowASCII, PixelASCII}
 
 import java.io.PrintWriter
 

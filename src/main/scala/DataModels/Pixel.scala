@@ -1,6 +1,6 @@
 package DataModels
 
-abstract class Pixel extends Data {
+abstract class Pixel {
   def returnPixel(): Pixel
 }
 

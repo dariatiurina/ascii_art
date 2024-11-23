@@ -1,5 +1,5 @@
 package Modules
-import DataModels.{Axis, Data, Image, ImageASCII, ImageGreyScale}
+import DataModels.{Axis, Image, ImageASCII, ImageGreyScale}
 import Exceptions.NoImageInFilter
 
 abstract class Filter[T <: Image[?]] {

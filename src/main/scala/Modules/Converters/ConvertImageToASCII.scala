@@ -1,7 +1,6 @@
 package Modules.Converters
 
 import DataModels.{
-  Data,
   ImageASCII,
   ImageGreyScale,
   ImageRowASCII,
