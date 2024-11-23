@@ -1,4 +1,4 @@
-package Modules
+package Modules.Converters
 
 import DataModels.{Data, ImageRGB, ImageRowRGB, PixelRGB}
 

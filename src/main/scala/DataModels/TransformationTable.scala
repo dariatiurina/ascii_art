@@ -3,11 +3,14 @@ package DataModels
 import Exceptions.NotKnownTransformationTable
 
 abstract class TransformationTable {
-  protected val table: String
   def transform(pixel: PixelGreyScale): PixelASCII
 }
 
-class DefaultLinearTransformTable extends TransformationTable {
+abstract class TransformationTableWIthTable extends TransformationTable {
+  protected val table: String
+}
+
+class LinearTransformTable extends TransformationTableWIthTable {
   override val table: String =
     "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
@@ -17,7 +20,7 @@ class DefaultLinearTransformTable extends TransformationTable {
   }
 }
 
-class DefaultNonLinearTransformTable extends TransformationTable {
+class NonLinearTransformTable extends TransformationTableWIthTable {
   override val table: String = "@%#*+=-:. "
   protected val transformRule: List[Range] = List(
     0 to 50,
@@ -41,7 +44,7 @@ class DefaultNonLinearTransformTable extends TransformationTable {
 }
 
 class CustomLinearTable(customTable: String)
-    extends DefaultLinearTransformTable {
+    extends LinearTransformTable {
   override val table: String = customTable
 }
 
@@ -49,9 +52,9 @@ object TransformationTable{
   def apply(tableType: String, parameter: String = ""): TransformationTable = {
     if(tableType == "--table"){
       parameter match
-        case "linear" => new DefaultLinearTransformTable()
-        case "default" => new DefaultLinearTransformTable()
-        case "non-linear" => new DefaultNonLinearTransformTable()
+        case "linear" => new LinearTransformTable()
+        case "default" => new LinearTransformTable()
+        case "non-linear" => new NonLinearTransformTable()
     }
     else if(tableType == "--custom-table"){
       new CustomLinearTable(parameter)

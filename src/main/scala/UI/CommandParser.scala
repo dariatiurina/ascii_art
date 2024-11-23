@@ -1,7 +1,10 @@
 package UI
 
-import DataModels.{DefaultLinearTransformTable, ImageASCII, ImageRGB, TransformationTable, UserCommands}
-import Modules.{ConvertToASCII, ExportImage, Filter, ImportImageFromPath, ImportRandomImage, Importer, ConvertImageToGreyScale}
+import DataModels.{LinearTransformTable, ImageASCII, ImageRGB, TransformationTable, UserCommands}
+import Modules.Converters.ConvertImageToGreyScale
+import Modules.Exporters.ExportImage
+import Modules.Filter
+import Modules.Importers.Importer
 import org.scalactic.Or
 
 class CommandParser(command: Seq[String]) {
@@ -9,7 +12,6 @@ class CommandParser(command: Seq[String]) {
 
   def parseCommands(): UserCommands = {
     for ((line, index) <- command.zipWithIndex) detectCaseCommand(line, index)
-    userCommandsParsed.sortFilters()
     userCommandsParsed
   }
 

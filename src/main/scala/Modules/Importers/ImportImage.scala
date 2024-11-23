@@ -1,7 +1,8 @@
-package Modules
+package Modules.Importers
 
 import DataModels.{Data, ImageRGB, ImageRowRGB, PixelRGB}
 import Exceptions.{NotKnownImageFormat, NotValidImport}
+import Modules.Converters.ConvertBufferedImageToImageRGB
 
 import java.awt.image.BufferedImage
 import java.io.File
@@ -16,9 +17,8 @@ abstract class ImportFromFileSystem(private val path: String) extends Importer
 
 class ImportImageFromPath(private val path: String)
     extends ImportFromFileSystem(path) {
-  override def importImage(): ImageRGB = {
+  override def importImage(): ImageRGB =
     ConvertBufferedImageToImageRGB().convert(ImageIO.read(new File(path)))
-  }
 }
 
 class ImportImageFromPathPng(private val path: String)

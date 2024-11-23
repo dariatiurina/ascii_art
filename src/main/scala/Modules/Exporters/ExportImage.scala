@@ -1,4 +1,4 @@
-package Modules
+package Modules.Exporters
 
 import DataModels.{Data, ImageASCII, ImageRowASCII, PixelASCII}
 

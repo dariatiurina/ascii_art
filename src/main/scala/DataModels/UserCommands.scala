@@ -1,15 +1,17 @@
 package DataModels
 
 import Exceptions.{MoreThanOneImageSource, NoImageInFilter}
-import Modules.{ConvertToASCII, ExportImage, ExportToConsole, Filter, FilterASCII, FilterGreyScale, Importer}
+import Modules.Converters.ConvertToASCII
+import Modules.Exporters.{ExportImage, ExportToConsole}
+import Modules.{Filter, FilterASCII, FilterGreyScale}
+import Modules.Importers.Importer
 
-class UserCommands {
+case class UserCommands() {
   private var imageSource: Option[Importer] = None
-  private var exportDestination: List[ExportImage] = List(ExportToConsole())
-  private var filters: List[Filter[?]] = List.empty
+  private var exportDestination: List[ExportImage] = List.empty
   private var filterASCII: List[FilterASCII] = List.empty
   private var filterGreyScale: List[FilterGreyScale] = List.empty
-  private var transformTable: TransformationTable = DefaultLinearTransformTable()
+  private var transformTable: TransformationTable = LinearTransformTable()
 
   def addSource(importer: Importer): Unit = {
     if (imageSource.isEmpty)
@@ -22,46 +24,28 @@ class UserCommands {
     ConvertToASCII(transformTable).convert(image)
   }
 
-  def runExport(image: ImageASCII): Unit = {
-    for (exportOption <- exportDestination)
-      exportOption.exportImage(image)
-  }
-
-  def runImport() : ImageRGB = {
-    imageSource.getOrElse(throw NoImageInFilter()).importImage()
-  }
-
   def addTransformationTable(table: TransformationTable): Unit =
     transformTable = table
-  
-  def runFiltersASCII(image: ImageASCII) : ImageASCII = {
-    var returnImage = image
-    for (filter <- filterASCII) {
-      returnImage = filter.applyFilter(image)
-    }
-    returnImage
-  }
-
-  def runFiltersGreyScale(image: ImageGreyScale): ImageGreyScale = {
-    var returnImage = image
-    for (filter <- filterGreyScale) {
-      returnImage = filter.applyFilter(image)
-    }
-    returnImage
-  }
 
   def addExportDestination(exportImage: ExportImage): Unit =
     exportDestination = exportDestination.appended(exportImage)
 
   def addFilter(filter: Filter[?]): Unit =
-    if (filter != null)
-      filters = filters.appended(filter)
+    filter match
+      case i: FilterASCII => filterASCII = filterASCII.appended(i)
+      case i: FilterGreyScale => filterGreyScale = filterGreyScale.appended(i)
 
-  def sortFilters(): Unit = {
-    for (filter <- filters) {
-      filter match
-        case i: FilterASCII => filterASCII = filterASCII.appended(i)
-        case i: FilterGreyScale => filterGreyScale = filterGreyScale.appended(i)
-    }
+  def returnImageSource(): Option[Importer] = imageSource
+
+  def returnExportDestination(): List[ExportImage] = {
+    if(exportDestination.isEmpty)
+      List(ExportToConsole())
+    exportDestination
   }
+
+  def returnFiltersASCII(): List[FilterASCII] = filterASCII
+  
+  def returnFiltersGreyScale(): List[FilterGreyScale] = filterGreyScale
+  
+  def returnTransformTable(): TransformationTable = transformTable
 }

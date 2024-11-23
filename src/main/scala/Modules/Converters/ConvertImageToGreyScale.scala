@@ -1,13 +1,6 @@
-package Modules
-import DataModels.{
-  Data,
-  ImageGreyScale,
-  ImageRGB,
-  ImageRowGreyScale,
-  ImageRowRGB,
-  PixelGreyScale,
-  PixelRGB
-}
+package Modules.Converters
+
+import DataModels.*
 
 class ConvertImageToGreyScale {
   def convert(imageRGB: ImageRGB): ImageGreyScale = {

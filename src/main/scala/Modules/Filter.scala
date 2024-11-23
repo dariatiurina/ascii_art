@@ -7,7 +7,6 @@ abstract class Filter[T <: Image[?]] {
 }
 
 abstract class FilterASCII extends Filter[ImageASCII] {
-
   override def applyFilter(image: ImageASCII): ImageASCII
 }
 
