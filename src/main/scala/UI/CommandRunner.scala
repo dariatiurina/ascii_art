@@ -2,7 +2,7 @@ package UI
 
 import DataModels.{ImageASCII, ImageGreyScale, UserCommands}
 import Exceptions.NotValidImport
-import Modules.Converters.{ConvertImageToGreyScale, ConvertToASCII}
+import Modules.Converters.{ConvertImageToGreyScale, ConvertImageToASCII}
 
 class CommandRunner(userCommands: UserCommands) {
   def runAll(): Unit = {
@@ -12,7 +12,7 @@ class CommandRunner(userCommands: UserCommands) {
       .importImage()
     var imageGreyScale = ConvertImageToGreyScale().convert(imageRGB)
     imageGreyScale = runGreyScaleFilters(imageGreyScale)
-    var imageASCII = ConvertToASCII(userCommands.returnTransformTable())
+    var imageASCII = ConvertImageToASCII(userCommands.returnTransformTable())
       .convert(imageGreyScale)
     imageASCII = runASCIIFilters(imageASCII)
     userCommands

@@ -11,7 +11,7 @@ import DataModels.{
   TransformationTable
 }
 
-class ConvertToASCII(table: TransformationTable) {
+class ConvertImageToASCII(table: TransformationTable) {
   def convert(image: ImageGreyScale): ImageASCII = {
     var returnImage = ImageASCII()
     for (ind <- 0 until image.getSize)

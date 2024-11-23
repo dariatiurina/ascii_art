@@ -1,7 +1,7 @@
 package DataModels
 
 import Exceptions.{MoreThanOneImageSource, NoImageInFilter}
-import Modules.Converters.ConvertToASCII
+import Modules.Converters.ConvertImageToASCII
 import Modules.Exporters.{ExportImage, ExportToConsole}
 import Modules.{Filter, FilterASCII, FilterGreyScale}
 import Modules.Importers.Importer
@@ -21,7 +21,7 @@ case class UserCommands() {
   }
 
   def transformToASCII(image: ImageGreyScale): ImageASCII = {
-    ConvertToASCII(transformTable).convert(image)
+    ConvertImageToASCII(transformTable).convert(image)
   }
 
   def addTransformationTable(table: TransformationTable): Unit =
