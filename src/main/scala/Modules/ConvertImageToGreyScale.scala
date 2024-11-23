@@ -9,8 +9,8 @@ import DataModels.{
   PixelRGB
 }
 
-class TransformImageToGreyScale(imageRGB: ImageRGB) extends CommandType {
-  override def runCommand(): ImageGreyScale = {
+class ConvertImageToGreyScale {
+  def convert(imageRGB: ImageRGB): ImageGreyScale = {
     val returnImage = ImageGreyScale()
     for (ind <- 0 until imageRGB.getSize)
       returnImage.appendRow(transformRow(imageRGB.getRow(ind)))

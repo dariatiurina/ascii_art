@@ -19,17 +19,16 @@ class UserCommands {
   }
 
   def transformToASCII(image: ImageGreyScale): ImageASCII = {
-    ConvertToASCII(image, transformTable).runCommand()
+    ConvertToASCII(transformTable).convert(image)
   }
 
   def runExport(image: ImageASCII): Unit = {
     for (exportOption <- exportDestination)
-      exportOption.addImage(image)
-      exportOption.runCommand()
+      exportOption.exportImage(image)
   }
 
   def runImport() : ImageRGB = {
-    imageSource.getOrElse(throw NoImageInFilter()).runCommand()
+    imageSource.getOrElse(throw NoImageInFilter()).importImage()
   }
 
   def addTransformationTable(table: TransformationTable): Unit =
@@ -38,8 +37,7 @@ class UserCommands {
   def runFiltersASCII(image: ImageASCII) : ImageASCII = {
     var returnImage = image
     for (filter <- filterASCII) {
-      filter.addImage(returnImage)
-      returnImage = filter.runCommand()
+      returnImage = filter.applyFilter(image)
     }
     returnImage
   }
@@ -47,8 +45,7 @@ class UserCommands {
   def runFiltersGreyScale(image: ImageGreyScale): ImageGreyScale = {
     var returnImage = image
     for (filter <- filterGreyScale) {
-      filter.addImage(returnImage)
-      returnImage = filter.runCommand()
+      returnImage = filter.applyFilter(image)
     }
     returnImage
   }

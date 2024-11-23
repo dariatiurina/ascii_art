@@ -2,18 +2,13 @@ package UI
 
 import DataModels.Axis.{x, y}
 import DataModels.{Axis, DefaultLinearTransformTable, DefaultNonLinearTransformTable}
-import Modules.{CommandType, ConvertToASCII, ExportToFile, FilterFlip, ImportImageFromPath, TransformImageToGreyScale}
+import Modules.{ConvertToASCII, ExportToFile, FilterFlip, ImportImageFromPath, ConvertImageToGreyScale}
 
 class ASCIIArtController(ui: ASCIIArtView) {
-  private def findCommand(commandLine: Seq[String]): List[CommandType] = {
-    var returnLine = List[CommandType]()
-    returnLine
-  }
-
   def run(commandLine: Seq[String]): Unit =
     val commands = CommandParser(commandLine).parseCommands()
     val image_imported = commands.runImport()
-    val imageGreyScale = TransformImageToGreyScale(image_imported).runCommand()
+    val imageGreyScale = ConvertImageToGreyScale().convert(image_imported)
     commands.runFiltersGreyScale(imageGreyScale)
     val imageASCII = commands.transformToASCII(imageGreyScale)
     commands.runExport(imageASCII)

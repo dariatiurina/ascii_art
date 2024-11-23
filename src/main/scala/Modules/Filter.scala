@@ -2,44 +2,40 @@ package Modules
 import DataModels.{Axis, Data, Image, ImageASCII, ImageGreyScale}
 import Exceptions.NoImageInFilter
 
-abstract class Filter[T <: Image[?]] extends CommandType {
-  protected var image: Option[T] = None
-
-  def addImage(addImage: T) : Unit = image = Some(addImage)
-
-  override def runCommand(): Image[?]
+abstract class Filter[T <: Image[?]] {
+  def applyFilter(image: T): T
 }
 
 abstract class FilterASCII extends Filter[ImageASCII] {
 
-  override def runCommand(): ImageASCII
+  override def applyFilter(image: ImageASCII): ImageASCII
 }
 
 abstract class FilterGreyScale extends Filter[ImageGreyScale] {
-  override def runCommand(): ImageGreyScale
+  override def applyFilter(image: ImageGreyScale): ImageGreyScale
 }
 
 class FilterFlip(axis: Axis) extends FilterASCII {
-  override def runCommand(): ImageASCII = {
+  override def applyFilter(image: ImageASCII): ImageASCII = {
     axis match
-      case Axis.x => flipX()
-      case Axis.y => flipY()
+      case Axis.x => flipX(image)
+      case Axis.y => flipY(image)
   }
 
-  private def flipX(): ImageASCII = {
-    image.getOrElse(throw NoImageInFilter()).flipRows()
-    image.get
+  private def flipX(image: ImageASCII): ImageASCII = {
+    image.flipRows()
+    image
   }
 
-  private def flipY(): ImageASCII = {
-    image.getOrElse(throw NoImageInFilter()).flipImage()
-    image.get
+  private def flipY(image: ImageASCII): ImageASCII = {
+    image.flipImage()
+    image
   }
 }
 
 class FilterInvert extends FilterGreyScale {
-  override def runCommand(): ImageGreyScale = {
-    val returnImage = image.getOrElse(throw NoImageInFilter())
+  override def applyFilter(image: ImageGreyScale): ImageGreyScale = {
+    val returnImage = image
     for (i <- 0 until returnImage.getSize){
       for (j <- 0 until returnImage.getRow(i).getSize)
         returnImage.getRow(i).getPixel(j).invert()
@@ -49,8 +45,8 @@ class FilterInvert extends FilterGreyScale {
 }
 
 class FilterBrightness(brightness: Int) extends FilterGreyScale {
-  override def runCommand(): ImageGreyScale = {
-    val returnImage = image.getOrElse(throw  NoImageInFilter())
+  override def applyFilter(image: ImageGreyScale): ImageGreyScale = {
+    val returnImage = image
     for (i <- 0 until returnImage.getSize) {
       for (j <- 0 until returnImage.getRow(i).getSize)
         returnImage.getRow(i).getPixel(j).changeBrightness(brightness)

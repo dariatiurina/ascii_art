@@ -1,7 +1,7 @@
 package UI
 
 import DataModels.{DefaultLinearTransformTable, ImageASCII, ImageRGB, TransformationTable, UserCommands}
-import Modules.{ConvertToASCII, ExportImage, Filter, ImportImageFromPath, ImportRandomImage, Importer, TransformImageToGreyScale}
+import Modules.{ConvertToASCII, ExportImage, Filter, ImportImageFromPath, ImportRandomImage, Importer, ConvertImageToGreyScale}
 import org.scalactic.Or
 
 class CommandParser(command: Seq[String]) {

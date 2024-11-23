@@ -8,17 +8,16 @@ import java.io.File
 import javax.imageio.ImageIO
 import scala.util.Random
 
-abstract class Importer extends CommandType {
-  override def runCommand(): ImageRGB
+abstract class Importer {
+  def importImage(): ImageRGB
 }
 
 abstract class ImportFromFileSystem(private val path: String) extends Importer
 
 class ImportImageFromPath(private val path: String)
     extends ImportFromFileSystem(path) {
-  override def runCommand(): ImageRGB = {
-    val image = ImageIO.read(new File(path))
-    GetImage(image).runCommand()
+  override def importImage(): ImageRGB = {
+    ConvertBufferedImageToImageRGB().convert(ImageIO.read(new File(path)))
   }
 }
 
@@ -34,7 +33,7 @@ class ImportImageFromPathGif(private val path: String)
 class ImportRandomImage extends Importer {
   private val rand = new Random()
 
-  override def runCommand(): ImageRGB = {
+  override def importImage(): ImageRGB = {
     val returnImage = ImageRGB()
     val width = 50 + rand.nextInt(451)
     val height = 50 + rand.nextInt(451)

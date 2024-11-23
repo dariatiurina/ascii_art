@@ -4,22 +4,16 @@ import DataModels.{Data, ImageASCII, ImageRowASCII, PixelASCII}
 
 import java.io.PrintWriter
 
-abstract class ExportImage extends CommandType {
-  protected var image: ImageASCII = ImageASCII()
-
-  def addImage(image: ImageASCII): Unit =
-    this.image = image
+abstract class ExportImage {
+  def exportImage(image: ImageASCII): Unit
 }
 
 class ExportToFile(file_name: String) extends ExportImage {
-  override def runCommand(): ImageASCII = exportImage()
-
-  private def exportImage(): ImageASCII = {
+  override def exportImage(image: ImageASCII): Unit = {
     val file = new PrintWriter(file_name)
     for (i <- 0 until image.getSize)
       writeRow(file, image.getRow(i))
     file.close()
-    image
   }
 
   private def writeRow(file: PrintWriter, row: ImageRowASCII): Unit = {
@@ -30,12 +24,9 @@ class ExportToFile(file_name: String) extends ExportImage {
 }
 
 class ExportToConsole extends ExportImage {
-  override def runCommand(): ImageASCII = exportImage()
-
-  private def exportImage(): ImageASCII = {
+  override def exportImage(image: ImageASCII): Unit = {
     for (i <- 0 until image.getSize)
       writeRow(image.getRow(i))
-    image
   }
 
   private def writeRow(row: ImageRowASCII): Unit = {
