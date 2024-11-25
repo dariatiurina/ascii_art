@@ -28,3 +28,13 @@ class FilterBrightnessFactory extends FilterGreyScaleFactory {
     new FilterBrightness(parameter.toInt)
   }
 }
+
+class MainFilterFactory {
+  def create(filterType: String, parameter: String = ""): Filter[?] = {
+    filterType match {
+      case "--brightness" => FilterBrightnessFactory().returnFilter(parameter)
+      case "--invert" => new FilterInvertFactory().returnFilter(parameter)
+      case "--flip" => new FilterFlipFactory().returnFilter(parameter)
+    }
+  }
+}

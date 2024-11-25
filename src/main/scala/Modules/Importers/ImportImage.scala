@@ -52,20 +52,3 @@ class ImportRandomImage extends Importer {
   private def generatePixel(): PixelRGB =
     PixelRGB(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256))
 }
-
-object Importer {
-  def apply(importType: String, parameter: String = ""): Importer =
-    importType match {
-      case "--image" =>
-        if (parameter.endsWith(".jpg"))
-          new ImportImageFromPathJpg(parameter)
-        else if (parameter.endsWith(".png"))
-          new ImportImageFromPathPng(parameter)
-        else if (parameter.endsWith(".gif"))
-          new ImportImageFromPathGif(parameter)
-        else
-          throw NotKnownImageFormat()
-      case "--image-random" => new ImportRandomImage()
-      case _                => throw NotValidImport()
-    }
-}

@@ -53,12 +53,3 @@ class FilterBrightness(brightness: Int) extends FilterGreyScale {
     returnImage
   }
 }
-
-object Filter{
-  def apply(filterType: String, parameter: String = ""): Filter[?] = {
-    filterType match
-      case "--brightness" => new FilterBrightness(parameter.toInt)
-      case "--invert" => new FilterInvert()
-      case "--flip" => new FilterFlip(Axis(parameter))
-  }
-}

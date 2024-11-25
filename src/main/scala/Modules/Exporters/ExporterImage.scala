@@ -35,11 +35,3 @@ class ExporterToConsole extends ExporterImage {
     println()
   }
 }
-
-object ExporterImage {
-  def apply(exportType: String, parameter: String = ""): ExporterImage = {
-    exportType match
-      case "--output-file" => new ExporterToFile(parameter)
-      case "--output-console" => new ExporterToConsole()
-  }
-}

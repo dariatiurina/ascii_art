@@ -47,19 +47,3 @@ class CustomLinearTable(customTable: String)
     extends LinearTransformTable {
   override val table: String = customTable
 }
-
-object TransformationTable{
-  def apply(tableType: String, parameter: String = ""): TransformationTable = {
-    if(tableType == "--table"){
-      parameter match
-        case "linear" => new LinearTransformTable()
-        case "default" => new LinearTransformTable()
-        case "non-linear" => new NonLinearTransformTable()
-    }
-    else if(tableType == "--custom-table"){
-      new CustomLinearTable(parameter)
-    }
-    else
-      throw NotKnownTransformationTable()
-  }
-}

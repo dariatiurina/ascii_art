@@ -17,3 +17,12 @@ class ExporterToConsoleFactory extends ExportFactory {
     new ExporterToConsole()
   }
 }
+
+class MainExportFactory {
+  def create(exportType: String, parameter: String): ExporterImage = {
+    exportType match {
+      case "--output-file" => ExporterToFileFactory().returnExport(parameter)
+      case "--output-console" => new ExporterToConsoleFactory().returnExport(parameter)
+    }
+  }
+}

@@ -1,6 +1,18 @@
 package UI
 
-import DataModels.{LinearTransformTable, ImageASCII, ImageRGB, TransformationTable, UserCommands}
+import DataModels.{
+  ImageASCII,
+  ImageRGB,
+  LinearTransformTable,
+  TransformationTable,
+  UserCommands
+}
+import Factories.{
+  MainExportFactory,
+  MainFilterFactory,
+  MainImportFactory,
+  MainTransformationTableFactory
+}
 import Modules.Converters.ConvertImageToGreyScale
 import Modules.Exporters.ExporterImage
 import Modules.Filter
@@ -11,7 +23,8 @@ class CommandParser(private val commandLine: Seq[String]) {
   private var userCommandsParsed: UserCommands = UserCommands()
 
   def parseCommands(): UserCommands = {
-    for ((line, index) <- commandLine.zipWithIndex) detectCaseCommand(line, index)
+    for ((line, index) <- commandLine.zipWithIndex)
+      detectCaseCommand(line, index)
     userCommandsParsed
   }
 
@@ -22,14 +35,17 @@ class CommandParser(private val commandLine: Seq[String]) {
     if (parameter.startsWith("--"))
       parameter = ""
     if (commandCheck.startsWith("--image"))
-      userCommandsParsed.addSource(Importer(commandCheck, parameter))
+      userCommandsParsed.addSource(
+        MainImportFactory().create(commandCheck, parameter))
     else if (commandCheck.startsWith("--output"))
       userCommandsParsed.addExportDestination(
-        ExporterImage.apply(commandCheck, parameter))
-    else if (commandCheck.startsWith("--table") || commandCheck.startsWith("--custom-table"))
+        MainExportFactory().create(commandCheck, parameter))
+    else if (commandCheck.startsWith("--table") || commandCheck.startsWith(
+               "--custom-table"))
       userCommandsParsed.addTransformationTable(
-        TransformationTable(commandCheck, parameter))
+        MainTransformationTableFactory().create(commandCheck, parameter))
     else if (commandCheck.startsWith("--"))
-      userCommandsParsed.addFilter(Filter(commandCheck, parameter))
+      userCommandsParsed.addFilter(
+        MainFilterFactory().create(commandCheck, parameter))
   }
 }
