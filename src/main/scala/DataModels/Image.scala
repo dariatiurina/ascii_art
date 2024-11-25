@@ -1,6 +1,6 @@
 package DataModels
 
-abstract class Image[T <: ImageRow[?]](private var rows: List[T]){
+trait Image[T <: ImageRow[?]](private var rows: List[T]){
   def apply(): Image[?] = new Image(List.empty) {}
 
   def flipImage(): Unit =

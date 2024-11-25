@@ -2,15 +2,15 @@ package Modules
 import DataModels.{Axis, Image, ImageASCII, ImageGreyScale}
 import Exceptions.NoImageInFilter
 
-abstract class Filter[T <: Image[?]] {
+trait Filter[T <: Image[?]] {
   def applyFilter(image: T): T
 }
 
-abstract class FilterASCII extends Filter[ImageASCII] {
+trait FilterASCII extends Filter[ImageASCII] {
   override def applyFilter(image: ImageASCII): ImageASCII
 }
 
-abstract class FilterGreyScale extends Filter[ImageGreyScale] {
+trait FilterGreyScale extends Filter[ImageGreyScale] {
   override def applyFilter(image: ImageGreyScale): ImageGreyScale
 }
 

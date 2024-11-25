@@ -2,11 +2,11 @@ package DataModels
 
 import Exceptions.NotKnownTransformationTable
 
-abstract class TransformationTable {
+trait TransformationTable {
   def transform(pixel: PixelGreyScale): PixelASCII
 }
 
-abstract class TransformationTableWIthTable extends TransformationTable {
+trait TransformationTableWIthTable extends TransformationTable {
   protected val table: String
 }
 

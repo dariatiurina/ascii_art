@@ -9,11 +9,11 @@ import java.io.File
 import javax.imageio.ImageIO
 import scala.util.Random
 
-abstract class Importer {
+trait Importer {
   def importImage(): ImageRGB
 }
 
-abstract class ImportFromFileSystem(private val path: String) extends Importer
+trait ImportFromFileSystem(private val path: String) extends Importer
 
 class ImportImageFromPath(private val path: String)
     extends ImportFromFileSystem(path) {

@@ -2,7 +2,7 @@ package UI
 
 import DataModels.{LinearTransformTable, ImageASCII, ImageRGB, TransformationTable, UserCommands}
 import Modules.Converters.ConvertImageToGreyScale
-import Modules.Exporters.ExportImage
+import Modules.Exporters.ExporterImage
 import Modules.Filter
 import Modules.Importers.Importer
 import org.scalactic.Or
@@ -25,7 +25,7 @@ class CommandParser(private val commandLine: Seq[String]) {
       userCommandsParsed.addSource(Importer(commandCheck, parameter))
     else if (commandCheck.startsWith("--output"))
       userCommandsParsed.addExportDestination(
-        ExportImage.apply(commandCheck, parameter))
+        ExporterImage.apply(commandCheck, parameter))
     else if (commandCheck.startsWith("--table") || commandCheck.startsWith("--custom-table"))
       userCommandsParsed.addTransformationTable(
         TransformationTable(commandCheck, parameter))

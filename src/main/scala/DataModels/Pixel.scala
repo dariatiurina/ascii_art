@@ -1,6 +1,6 @@
 package DataModels
 
-abstract class Pixel {
+trait Pixel {
   def returnPixel(): Pixel
 }
 

@@ -4,11 +4,11 @@ import DataModels.{ImageASCII, ImageRowASCII, PixelASCII}
 
 import java.io.PrintWriter
 
-abstract class ExportImage {
+trait ExporterImage {
   def exportImage(image: ImageASCII): Unit
 }
 
-class ExportToFile(file_name: String) extends ExportImage {
+class ExporterToFile(file_name: String) extends ExporterImage {
   override def exportImage(image: ImageASCII): Unit = {
     val file = new PrintWriter(file_name)
     for (i <- 0 until image.getSize)
@@ -23,7 +23,7 @@ class ExportToFile(file_name: String) extends ExportImage {
   }
 }
 
-class ExportToConsole extends ExportImage {
+class ExporterToConsole extends ExporterImage {
   override def exportImage(image: ImageASCII): Unit = {
     for (i <- 0 until image.getSize)
       writeRow(image.getRow(i))
@@ -36,10 +36,10 @@ class ExportToConsole extends ExportImage {
   }
 }
 
-object ExportImage {
-  def apply(exportType: String, parameter: String = ""): ExportImage = {
+object ExporterImage {
+  def apply(exportType: String, parameter: String = ""): ExporterImage = {
     exportType match
-      case "--output-file" => new ExportToFile(parameter)
-      case "--output-console" => new ExportToConsole()
+      case "--output-file" => new ExporterToFile(parameter)
+      case "--output-console" => new ExporterToConsole()
   }
 }

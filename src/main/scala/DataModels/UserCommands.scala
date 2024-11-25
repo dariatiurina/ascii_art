@@ -2,13 +2,13 @@ package DataModels
 
 import Exceptions.{MoreThanOneImageSource, NoImageInFilter}
 import Modules.Converters.ConvertImageToASCII
-import Modules.Exporters.{ExportImage, ExportToConsole}
+import Modules.Exporters.{ExporterImage, ExporterToConsole}
 import Modules.{Filter, FilterASCII, FilterGreyScale}
 import Modules.Importers.Importer
 
 case class UserCommands() {
   private var imageSource: Option[Importer] = None
-  private var exportDestination: List[ExportImage] = List.empty
+  private var exportDestination: List[ExporterImage] = List.empty
   private var filterASCII: List[FilterASCII] = List.empty
   private var filterGreyScale: List[FilterGreyScale] = List.empty
   private var transformTable: TransformationTable = LinearTransformTable()
@@ -27,7 +27,7 @@ case class UserCommands() {
   def addTransformationTable(table: TransformationTable): Unit =
     transformTable = table
 
-  def addExportDestination(exportImage: ExportImage): Unit =
+  def addExportDestination(exportImage: ExporterImage): Unit =
     exportDestination = exportDestination.appended(exportImage)
 
   def addFilter(filter: Filter[?]): Unit =
@@ -37,9 +37,9 @@ case class UserCommands() {
 
   def returnImageSource(): Option[Importer] = imageSource
 
-  def returnExportDestination(): List[ExportImage] = {
+  def returnExportDestination(): List[ExporterImage] = {
     if(exportDestination.isEmpty)
-      List(ExportToConsole())
+      List(ExporterToConsole())
     exportDestination
   }
 

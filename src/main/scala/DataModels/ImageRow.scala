@@ -1,6 +1,6 @@
 package DataModels
 
-abstract class ImageRow[T <: Pixel](private var pixels: List[T]) {
+trait ImageRow[T <: Pixel](private var pixels: List[T]) {
 
   def flipRow(): Unit =
     pixels = pixels.reverse
