@@ -4,6 +4,7 @@ import DataModels.{
   ImageASCII,
   ImageRGB,
   LinearTransformTable,
+  MainFactories,
   TransformationTable,
   UserCommands
 }
@@ -21,6 +22,7 @@ import org.scalactic.Or
 
 class CommandParser(private val commandLine: Seq[String]) {
   private var userCommandsParsed: UserCommands = UserCommands()
+  private val mainFactories: MainFactories = MainFactories()
 
   def parseCommands(): UserCommands = {
     for ((line, index) <- commandLine.zipWithIndex)
@@ -36,16 +38,17 @@ class CommandParser(private val commandLine: Seq[String]) {
       parameter = ""
     if (commandCheck.startsWith("--image"))
       userCommandsParsed.addSource(
-        MainImportFactory().create(commandCheck, parameter))
+        mainFactories.returnImportFactory.create(commandCheck, parameter))
     else if (commandCheck.startsWith("--output"))
       userCommandsParsed.addExportDestination(
-        MainExportFactory().create(commandCheck, parameter))
+        mainFactories.returnExportFactory.create(commandCheck, parameter))
     else if (commandCheck.startsWith("--table") || commandCheck.startsWith(
                "--custom-table"))
       userCommandsParsed.addTransformationTable(
-        MainTransformationTableFactory().create(commandCheck, parameter))
+        mainFactories.returnTransformationTableFactory
+          .create(commandCheck, parameter))
     else if (commandCheck.startsWith("--"))
       userCommandsParsed.addFilter(
-        MainFilterFactory().create(commandCheck, parameter))
+        mainFactories.returnFilterFactory.create(commandCheck, parameter))
   }
 }

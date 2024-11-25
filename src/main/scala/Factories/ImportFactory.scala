@@ -7,7 +7,7 @@ trait ImportFactory {
   def returnImport(parameter: String): Importer
 }
 
-class ImportImageFromPathFactory extends ImportFactory {
+trait ImportImageFromPathFactory extends ImportFactory {
   override def returnImport(parameter: String): ImportImageFromPath =
     new ImportImageFromPath(parameter)
 }
@@ -23,11 +23,23 @@ class ImportRandomImageFactory extends ImportFactory {
     new ImportRandomImage()
 }
 
-class MainImportFactory {
+class MainImportFactory(
+  private val importRandomImageFactory: ImportRandomImageFactory = new ImportRandomImageFactory(),
+  private val importFileType: Map[String, ImportImageFromPathFactory] = Map(
+    "jpg" -> new ImportImageFromPathJPGFactory(),
+    "png" -> new ImportImageFromPathPNGFactory(),
+    "gif" -> new ImportImageFromPathGIFFactory()
+  )
+) {
   def create(importType: String, parameter: String = ""): Importer =
     importType match {
-      case "--image" => ImportImageFromPathFactory().returnImport(parameter)
-      case "--image-random" => ImportRandomImageFactory().returnImport(parameter)
-      case _ => throw NotValidImport()
+      case "--image" =>
+        importFileType
+          .getOrElse(
+            parameter.reverse.takeWhile(_ != '.').reverse,
+            throw NotValidImport())
+          .returnImport(parameter)
+      case "--image-random" => importRandomImageFactory.returnImport(parameter)
+      case _                => throw NotValidImport()
     }
 }

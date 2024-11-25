@@ -32,18 +32,25 @@ class CustomLinearTableFactory extends TransformationTableWIthTableFactory {
     new CustomLinearTable(parameter)
 }
 
-class MainTransformationTableFactory {
+class MainTransformationTableFactory(
+  private val linearTransformTableFactory: LinearTransformTableFactory =
+    new LinearTransformTableFactory(),
+  private val nonLinearTransformTableFactory: NonLinearTransformTableFactory =
+    new NonLinearTransformTableFactory(),
+  private val customLinearTableFactory: CustomLinearTableFactory =
+    new CustomLinearTableFactory()
+) {
   def create(tableType: String, parameter: String = ""): TransformationTable =
     if (tableType == "--table")
       parameter match {
         case "linear" =>
-          LinearTransformTableFactory().returnTransformationTable(parameter)
+          linearTransformTableFactory.returnTransformationTable(parameter)
         case "default" =>
-          LinearTransformTableFactory().returnTransformationTable(parameter)
+          linearTransformTableFactory.returnTransformationTable(parameter)
         case "non-linear" =>
-          NonLinearTransformTableFactory().returnTransformationTable(parameter)
+          nonLinearTransformTableFactory.returnTransformationTable(parameter)
       } else if (tableType == "--custom-table")
-      CustomLinearTableFactory().returnTransformationTable(parameter)
+      customLinearTableFactory.returnTransformationTable(parameter)
     else
       throw NotKnownTransformationTable()
 }
