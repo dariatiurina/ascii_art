@@ -19,3 +19,7 @@ case class NotKnownTransformationTable(
 case class NotKnownImageFormat(
   private val message: String = "This image format is not known")
     extends Exception(message)
+
+case class NotKnownCommand(
+                                private val message: String = "This command is not known")
+  extends Exception(message)

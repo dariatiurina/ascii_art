@@ -1,19 +1,8 @@
 package UI
 
-import DataModels.{
-  ImageASCII,
-  ImageRGB,
-  LinearTransformTable,
-  MainFactories,
-  TransformationTable,
-  UserCommands
-}
-import Factories.{
-  MainExportFactory,
-  MainFilterFactory,
-  MainImportFactory,
-  MainTransformationTableFactory
-}
+import DataModels.{ImageASCII, ImageRGB, LinearTransformTable, MainFactories, TransformationTable, UserCommands}
+import Exceptions.NotKnownCommand
+import Factories.{MainExportFactory, MainFilterFactory, MainImportFactory, MainTransformationTableFactory}
 import Modules.Converters.ConvertImageToGreyScale
 import Modules.Exporters.ExporterImage
 import Modules.Filter
@@ -37,18 +26,14 @@ class CommandParser(private val commandLine: Seq[String]) {
     if (parameter.startsWith("--"))
       parameter = ""
     if (commandCheck.startsWith("--image"))
-      userCommandsParsed.addSource(
-        mainFactories.returnImportFactory.create(commandCheck, parameter))
+      userCommandsParsed.addSource(mainFactories.returnImportFactory.create(commandCheck, parameter))
     else if (commandCheck.startsWith("--output"))
-      userCommandsParsed.addExportDestination(
-        mainFactories.returnExportFactory.create(commandCheck, parameter))
-    else if (commandCheck.startsWith("--table") || commandCheck.startsWith(
-               "--custom-table"))
-      userCommandsParsed.addTransformationTable(
-        mainFactories.returnTransformationTableFactory
-          .create(commandCheck, parameter))
+      userCommandsParsed.addExportDestination(mainFactories.returnExportFactory.create(commandCheck, parameter))
+    else if (commandCheck.startsWith("--table") || commandCheck.startsWith("--custom-table"))
+      userCommandsParsed.addTransformationTable(mainFactories.returnTransformationTableFactory.create(commandCheck, parameter))
     else if (commandCheck.startsWith("--"))
-      userCommandsParsed.addFilter(
-        mainFactories.returnFilterFactory.create(commandCheck, parameter))
+      userCommandsParsed.addFilter(mainFactories.returnFilterFactory.create(commandCheck, parameter))
+    else
+      throw NotKnownCommand() 
   }
 }
