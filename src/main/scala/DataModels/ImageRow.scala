@@ -16,6 +16,12 @@ trait ImageRow[T <: Pixel](private var pixels: List[T]) {
 
   def setPixel(index: Int, pixel: T): Unit =
     pixels.updated(index, pixel)
+
+  override def equals(obj: Any): Boolean = {
+    obj match
+      case row: ImageRow[T] => row.pixels == this.pixels
+      case _ => false
+  }
 }
 
 class ImageRowRGB(pixels: List[PixelRGB] = List.empty)
