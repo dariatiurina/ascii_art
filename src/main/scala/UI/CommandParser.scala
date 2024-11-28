@@ -10,7 +10,7 @@ import Modules.Importers.Importer
 import org.scalactic.Or
 
 class CommandParser(private val commandLine: Seq[String]) {
-  private var userCommandsParsed: UserCommands = UserCommands()
+  private val userCommandsParsed: UserCommands = UserCommands()
   private val mainFactories: MainFactories = MainFactories()
 
   def parseCommands(): UserCommands = {
