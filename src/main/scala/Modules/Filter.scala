@@ -21,12 +21,14 @@ class FilterFlip(axis: Axis) extends FilterASCII {
       case Axis.y => flipY(image)
   }
 
-  private def flipX(image: ImageASCII): ImageASCII = {
-    image.flipRows()
-    image
+  private def flipY(image: ImageASCII): ImageASCII = {
+    val imageRet = image.copy()
+    imageRet.flipRows()
+    imageRet
   }
 
-  private def flipY(image: ImageASCII): ImageASCII = {
+  private def flipX(image: ImageASCII): ImageASCII = {
+    val imageRet = image.copy()
     image.flipImage()
     image
   }

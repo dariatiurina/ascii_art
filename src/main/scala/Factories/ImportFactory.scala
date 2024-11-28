@@ -27,8 +27,7 @@ class MainImportFactory(
   private val importRandomImageFactory: ImportRandomImageFactory = new ImportRandomImageFactory(),
   private val importFileType: Map[String, ImportImageFromPathFactory] = Map(
     "jpg" -> new ImportImageFromPathJPGFactory(),
-    "png" -> new ImportImageFromPathPNGFactory(),
-    "gif" -> new ImportImageFromPathGIFFactory()
+    "png" -> new ImportImageFromPathPNGFactory()
   )
 ) {
   def create(importType: String, parameter: String = ""): Importer =

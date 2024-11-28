@@ -2,12 +2,12 @@ package DataModels
 
 trait Image[T <: ImageRow[?]](protected var rows: List[T]) {
   def apply(): Image[?] = new Image(List.empty) {}
-
+  
   def flipImage(): Unit =
     rows = rows.reverse
 
   def flipRows(): Unit =
-    rows.foreach(_.flipRow())
+    rows.foreach(row => row.flipRow())
 
   def appendRow(append_row: T): Unit =
     rows = rows :+ append_row
@@ -27,6 +27,13 @@ trait Image[T <: ImageRow[?]](protected var rows: List[T]) {
       case image: Image[_] => rows.equals(image.rows)
       case _               => false
     }
+
+  override def toString: String = {
+    var ret = ""
+    for(row <- this.rows)
+      ret = ret + row + '\n'
+    ret
+  }
 }
 
 case class ImageRGB(pixels: List[ImageRowRGB] = List.empty)

@@ -2,8 +2,11 @@ package DataModels
 
 trait ImageRow[T <: Pixel](private var pixels: List[T]) {
 
-  def flipRow(): Unit =
+  def copy(): ImageRow[T] = new ImageRow(this.pixels) {}
+
+  def flipRow(): Unit = {
     pixels = pixels.reverse
+  }
 
   def appendPixel(append_pixel: T): Unit =
     pixels = pixels :+ append_pixel
@@ -29,6 +32,13 @@ trait ImageRow[T <: Pixel](private var pixels: List[T]) {
     obj match
       case row: ImageRow[_] => row.pixels == this.pixels
       case _ => false
+  }
+
+  override def toString: String = {
+    var ret = ""
+    for(pixel <- pixels)
+      ret = ret +  pixel + " "
+    ret
   }
 }
 

@@ -27,9 +27,6 @@ class ImportImageFromPathPng(private val path: String)
 class ImportImageFromPathJpg(private val path: String)
     extends ImportImageFromPath(path)
 
-class ImportImageFromPathGif(private val path: String)
-    extends ImportImageFromPath(path)
-
 class ImportRandomImage extends Importer {
   private val rand = new Random()
 

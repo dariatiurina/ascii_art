@@ -27,14 +27,17 @@ class FilterBrightnessFactory extends FilterGreyScaleFactory {
 }
 
 class MainFilterFactory(
-  private val filterBrightnessFactory: FilterBrightnessFactory = new FilterBrightnessFactory(),
+  private val filterBrightnessFactory: FilterBrightnessFactory =
+    new FilterBrightnessFactory(),
   private val filterFlipFactory: FilterFlipFactory = new FilterFlipFactory(),
-  private val filterInvertFactory: FilterInvertFactory = new FilterInvertFactory()
+  private val filterInvertFactory: FilterInvertFactory =
+    new FilterInvertFactory()
 ) {
-  def create(filterType: String, parameter: String = ""): Filter[?] =
+  def create(filterType: String, parameter: String = ""): Option[Filter[?]] =
     filterType match {
-      case "--brightness" => filterBrightnessFactory.returnFilter(parameter)
-      case "--invert"     => filterInvertFactory.returnFilter(parameter)
-      case "--flip"       => filterFlipFactory.returnFilter(parameter)
+      case "--brightness" => Option(filterBrightnessFactory.returnFilter(parameter))
+      case "--invert" => Option(filterInvertFactory.returnFilter(parameter))
+      case "--flip"   => Option(filterFlipFactory.returnFilter(parameter))
+      case _          => Option.empty
     }
 }

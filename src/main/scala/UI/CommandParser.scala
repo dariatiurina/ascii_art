@@ -32,8 +32,9 @@ class CommandParser(private val commandLine: Seq[String]) {
     else if (commandCheck.startsWith("--table") || commandCheck.startsWith("--custom-table"))
       userCommandsParsed.addTransformationTable(mainFactories.returnTransformationTableFactory.create(commandCheck, parameter))
     else if (commandCheck.startsWith("--"))
-      userCommandsParsed.addFilter(mainFactories.returnFilterFactory.create(commandCheck, parameter))
-    else
-      throw NotKnownCommand() 
+      mainFactories.returnFilterFactory.create(commandCheck, parameter) match {
+        case Some(filter) => userCommandsParsed.addFilter(filter)
+        case None => throw NotKnownCommand()
+      }
   }
 }

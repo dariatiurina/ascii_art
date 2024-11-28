@@ -46,7 +46,7 @@ case class PixelGreyScale(private var grey: Int) extends Pixel {
 
 case class PixelASCII(private var ascii: Char) extends Pixel {
   override def returnPixel(): PixelASCII = PixelASCII(ascii)
-
+  
   def returnASCII(): Char = ascii
 
   override def equals(obj: Any): Boolean = {
@@ -54,4 +54,6 @@ case class PixelASCII(private var ascii: Char) extends Pixel {
       case p: PixelASCII => p.ascii == this.ascii
       case _ => false
   }
+
+  override def toString: String = this.ascii.toString
 }
