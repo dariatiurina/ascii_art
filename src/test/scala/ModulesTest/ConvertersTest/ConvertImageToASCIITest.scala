@@ -1,7 +1,7 @@
 package ModulesTest.ConvertersTest
 
 import DataModels.{ImageASCII, ImageGreyScale, ImageRowASCII, ImageRowGreyScale, LinearTransformTable, PixelASCII, PixelGreyScale}
-import Modules.Converters.ConvertImageToASCII
+import Modules.Converters.ConvertImageToASCIIWithTransformationTable
 import org.scalatest.funsuite.AnyFunSuite
 
 class ConvertImageToASCIITest extends AnyFunSuite {
@@ -22,6 +22,6 @@ class ConvertImageToASCIITest extends AnyFunSuite {
         ImageRowASCII(List(PixelASCII(' '), PixelASCII(' '), PixelASCII(' ')))
       )
     )
-    assert(ConvertImageToASCII(LinearTransformTable()).convert(imageTest) == imageRight)
+    assert(ConvertImageToASCIIWithTransformationTable(LinearTransformTable()).convert(imageTest) == imageRight)
   }
 }

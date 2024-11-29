@@ -20,10 +20,6 @@ case class UserCommands() {
       throw MoreThanOneImageSource()
   }
 
-  def transformToASCII(image: ImageGreyScale): ImageASCII = {
-    ConvertImageToASCII(transformTable).convert(image)
-  }
-
   def addTransformationTable(table: TransformationTable): Unit =
     transformTable = table
 
