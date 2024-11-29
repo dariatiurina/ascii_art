@@ -4,16 +4,16 @@ import DataModels.*
 
 class ConvertImageToGreyScale {
   def convert(imageRGB: ImageRGB): ImageGreyScale = {
-    val returnImage = ImageGreyScale()
+    var returnImage = ImageGreyScale()
     for (ind <- 0 until imageRGB.getSize)
-      returnImage.appendRow(transformRow(imageRGB.getRow(ind)))
+      returnImage = returnImage.appendRow(transformRow(imageRGB.getRow(ind)))
     returnImage
   }
 
   private def transformRow(row: ImageRowRGB): ImageRowGreyScale = {
-    val returnRow = ImageRowGreyScale()
+    var returnRow = ImageRowGreyScale()
     for (ind <- 0 until row.getSize)
-      returnRow.appendPixel(transformPixel(row.getPixel(ind)))
+      returnRow = returnRow.appendPixel(transformPixel(row.getPixel(ind)))
     returnRow
   }
 

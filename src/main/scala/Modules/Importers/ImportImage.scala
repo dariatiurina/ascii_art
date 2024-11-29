@@ -31,18 +31,18 @@ class ImportRandomImage extends Importer {
   private val rand = new Random()
 
   override def importImage(): ImageRGB = {
-    val returnImage = ImageRGB()
+    var returnImage = ImageRGB()
     val width = 50 + rand.nextInt(451)
     val height = 50 + rand.nextInt(451)
     for (i <- 0 until height)
-      returnImage.appendRow(generateRow(width))
+      returnImage = returnImage.appendRow(generateRow(width))
     returnImage
   }
 
   private def generateRow(width: Int): ImageRowRGB = {
-    val returnRow = ImageRowRGB()
+    var returnRow = ImageRowRGB()
     for (i <- 0 until width)
-      returnRow.appendPixel(generatePixel())
+      returnRow = returnRow.appendPixel(generatePixel())
     returnRow
   }
 

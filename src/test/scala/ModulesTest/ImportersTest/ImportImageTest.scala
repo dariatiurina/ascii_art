@@ -13,9 +13,9 @@ import javax.imageio.ImageIO
 
 class ImportImageTest extends AnyFunSuite {
   test("import-image-from-file") {
-    val image = new File("input/test.jpg")
+    val image = new File("input/test.png")
     if (image.exists && !image.isDirectory) {
-      val imageImport = ImportImageFromPath("input/test.jpg").importImage()
+      val imageImport = ImportImageFromPath("input/test.png").importImage()
       assert(imageImport.getSize > 0)
       assert(imageImport.getRow(0).getSize > 0)
     }

@@ -1,17 +1,11 @@
 package DataModels
 
-trait Image[T <: ImageRow[?]](protected var rows: List[T]) {
-  def apply(): Image[?] = new Image(List.empty) {}
+//Generic trait for image
+trait Image[T <: ImageRow[?]](protected val rows: List[T]) {
+  //appends image with a new row
+  def appendRow(append_row: T): Image[T]
 
-  def flipImage(): Unit =
-    rows = rows.reverse
-
-  def flipRows(): Unit =
-    rows.foreach(row => row.flipRow())
-
-  def appendRow(append_row: T): Unit =
-    rows = rows :+ append_row
-
+  //returns row
   def getRow(index: Int): T =
     if (index < this.getSize)
       rows(index)
@@ -19,28 +13,29 @@ trait Image[T <: ImageRow[?]](protected var rows: List[T]) {
       throw IndexOutOfBoundsException(
         "Index is more than number of rows in the Image")
 
+  //returns number of rows
   def getSize: Int =
     rows.size
 
+  //redefining of equals
   override def equals(obj: Any): Boolean =
     obj match {
-      case image: Image[_] => rows.equals(image.rows)
+      case image: Image[_] => this.rows.equals(image.rows)
       case _               => false
     }
-
-  override def toString: String = {
-    var ret = ""
-    for(row <- this.rows)
-      ret = ret + row + '\n'
-    ret
-  }
 }
 
-case class ImageRGB(private var pixels: List[ImageRowRGB] = List.empty)
-    extends Image[ImageRowRGB](pixels)
+case class ImageRGB(private val pixels: List[ImageRowRGB] = List.empty)
+    extends Image[ImageRowRGB](pixels) {
+  override def appendRow(append_row: ImageRowRGB): ImageRGB = ImageRGB(pixels :+ append_row)
+}
 
-case class ImageGreyScale(private var pixels: List[ImageRowGreyScale] = List.empty)
-    extends Image[ImageRowGreyScale](pixels)
+case class ImageGreyScale(private val pixels: List[ImageRowGreyScale] = List.empty)
+    extends Image[ImageRowGreyScale](pixels) {
+  override def appendRow(append_row: ImageRowGreyScale): ImageGreyScale = ImageGreyScale(pixels :+ append_row)
+}
 
-case class ImageASCII(private var pixels: List[ImageRowASCII] = List.empty)
-    extends Image[ImageRowASCII](pixels)
+case class ImageASCII(private val pixels: List[ImageRowASCII] = List.empty)
+    extends Image[ImageRowASCII](pixels) {
+  override def appendRow(append_row: ImageRowASCII): ImageASCII = ImageASCII(pixels :+ append_row)
+}

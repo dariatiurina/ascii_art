@@ -1,5 +1,6 @@
 package DataModels
 
+/*Class for Axis*/
 enum Axis:
   case x, y
 

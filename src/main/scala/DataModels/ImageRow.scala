@@ -1,15 +1,11 @@
 package DataModels
 
-trait ImageRow[T <: Pixel](private var pixels: List[T]) {
+//Generic trait for ImageRow
+trait ImageRow[T <: Pixel](private val pixels: List[T]) {
 
-  def copy(): ImageRow[T] = new ImageRow(this.pixels) {}
+  def flipRow(): ImageRow[T] = new ImageRow(pixels.reverse) {}
 
-  def flipRow(): Unit = {
-    pixels = pixels.reverse
-  }
-
-  def appendPixel(append_pixel: T): Unit =
-    pixels = pixels :+ append_pixel
+  def appendPixel(append_pixel: T): ImageRow[T] = new ImageRow(pixels :+ append_pixel) {}
 
   def getSize: Int =
     pixels.size
@@ -21,16 +17,9 @@ trait ImageRow[T <: Pixel](private var pixels: List[T]) {
       throw IndexOutOfBoundsException("Index is more than number of Pixels in the Row")
   }
 
-  def setPixel(index: Int, pixel: T): Unit = {
-    if (index < this.getSize)
-      pixels = pixels.updated(index, pixel)
-    else
-      throw IndexOutOfBoundsException("Index is more than number of Pixels in the Row")
-  }
-
   override def equals(obj: Any): Boolean = {
     obj match
-      case row: ImageRow[_] => row.pixels == this.pixels
+      case row: ImageRow[_] => row.getClass == this.getClass && row.pixels == this.pixels
       case _ => false
   }
 
@@ -42,11 +31,23 @@ trait ImageRow[T <: Pixel](private var pixels: List[T]) {
   }
 }
 
-class ImageRowRGB(private var pixels: List[PixelRGB] = List.empty)
-    extends ImageRow[PixelRGB](pixels)
+case class ImageRowRGB(private val pixels: List[PixelRGB] = List.empty)
+    extends ImageRow[PixelRGB](pixels) {
+  override def flipRow(): ImageRowRGB = ImageRowRGB(pixels.reverse)
 
-class ImageRowGreyScale(private var pixels: List[PixelGreyScale] = List.empty)
-    extends ImageRow[PixelGreyScale](pixels)
+  override def appendPixel(append_pixel: PixelRGB): ImageRowRGB = ImageRowRGB(pixels :+ append_pixel)
+}
 
-class ImageRowASCII(private var pixels: List[PixelASCII] = List.empty)
-    extends ImageRow[PixelASCII](pixels)
+case class ImageRowGreyScale(private val pixels: List[PixelGreyScale] = List.empty)
+    extends ImageRow[PixelGreyScale](pixels) {
+  override def flipRow(): ImageRowGreyScale = ImageRowGreyScale(pixels.reverse)
+
+  override def appendPixel(append_pixel: PixelGreyScale): ImageRowGreyScale = ImageRowGreyScale(pixels :+ append_pixel)
+}
+
+case class ImageRowASCII(private val pixels: List[PixelASCII] = List.empty)
+    extends ImageRow[PixelASCII](pixels) {
+  override def flipRow(): ImageRowASCII = ImageRowASCII(pixels.reverse)
+
+  override def appendPixel(append_pixel: PixelASCII): ImageRowASCII = ImageRowASCII(pixels :+ append_pixel)
+}

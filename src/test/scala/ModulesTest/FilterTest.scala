@@ -38,6 +38,17 @@ class FilterTest extends AnyFunSuite {
     assert(FilterFlip(x).applyFilter(imageTest) == imageRight)
   }
 
+  test("flip-immutable") {
+    val row1 = ImageRowASCII(List(PixelASCII('a'), PixelASCII('b'), PixelASCII('c')))
+    val row2 = ImageRowASCII(List(PixelASCII('c'), PixelASCII('b'), PixelASCII('a')))
+    val row3 = ImageRowASCII(List(PixelASCII('1'), PixelASCII('2'), PixelASCII('3')))
+    val row4 = ImageRowASCII(List(PixelASCII('3'), PixelASCII('2'), PixelASCII('1')))
+
+    val imageTest = ImageASCII(List(row1, row2, row3, row4))
+    val imageRight = ImageASCII(List(row2, row1, row4, row3))
+    assert(FilterFlip(y).applyFilter(imageTest) == imageRight)
+  }
+
   test("filter-brightness") {
     val imageTest = ImageGreyScale(
       List(

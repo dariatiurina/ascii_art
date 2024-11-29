@@ -31,11 +31,11 @@ case class PixelGreyScale(private var grey: Int) extends Pixel {
 
   def returnGrey(): Int = grey
 
-  def invert(): Unit =
-    grey = 255 - grey
+  def invert(): PixelGreyScale =
+    PixelGreyScale(255 - grey)
 
-  def changeBrightness(brightness: Int): Unit =
-    grey = math.max(math.min(grey + brightness, 255), 0)
+  def changeBrightness(brightness: Int): PixelGreyScale =
+    PixelGreyScale(math.max(math.min(grey + brightness, 255), 0))
 
   override def equals(obj: Any): Boolean = {
     obj match

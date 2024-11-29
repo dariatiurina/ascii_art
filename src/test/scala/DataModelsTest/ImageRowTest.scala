@@ -7,15 +7,13 @@ class ImageRowTest extends AnyFunSuite {
   test("flip-row") {
     val row1 = ImageRowRGB(List(PixelRGB(255, 255, 255), PixelRGB(0, 0, 0)))
     val row2 = ImageRowRGB(List(PixelRGB(0, 0, 0), PixelRGB(255, 255, 255)))
-    row1.flipRow()
-    assert(row1 == row2)
+    assert(row1.flipRow() == row2)
   }
 
   test("append-row") {
     val row1 = ImageRowRGB(List(PixelRGB(255, 255, 255)))
     val row2 = ImageRowRGB(List(PixelRGB(255, 255, 255), PixelRGB(0, 0, 0)))
-    row1.appendPixel(PixelRGB(0, 0, 0))
-    assert(row1 == row2)
+    assert(row1.appendPixel(PixelRGB(0, 0, 0)) == row2)
   }
 
   test("get-size") {
@@ -28,15 +26,13 @@ class ImageRowTest extends AnyFunSuite {
   test("flip-row-correct") {
     val row1 = ImageRowRGB(List(PixelRGB(255, 255, 255), PixelRGB(0, 0, 0)))
     val row2 = ImageRowRGB(List(PixelRGB(0, 0, 0), PixelRGB(255, 255, 255)))
-    row1.flipRow()
-    assert(row1 == row2)
+    assert(row1.flipRow() == row2)
   }
 
   test("flip-row-empty") {
     val row1 = ImageRowRGB()
     val row2 = ImageRowRGB()
-    row1.flipRow()
-    assert(row1 == row2)
+    assert(row1.flipRow() == row2)
   }
 
   test("get-pixel-correct") {
@@ -48,22 +44,6 @@ class ImageRowTest extends AnyFunSuite {
   test("get-pixel-empty") {
     val row1 = ImageRowRGB()
     intercept[IndexOutOfBoundsException] { row1.getPixel(0) }
-  }
-
-  test("set-pixel-correct") {
-    val row1 = ImageRowRGB(List(PixelRGB(255, 255, 255), PixelRGB(0, 0, 0)))
-    val row2 = ImageRowRGB(List(PixelRGB(0, 0, 0), PixelRGB(0, 0, 0)))
-    row1.setPixel(0, PixelRGB(0, 0, 0))
-    println(row1.getPixel(0))
-    println(row2)
-    assert(row1 == row2)
-  }
-
-  test("set-pixel-empty") {
-    val row1 = ImageRowRGB()
-    intercept[IndexOutOfBoundsException] {
-      row1.setPixel(0, PixelRGB(0, 0, 0))
-    }
   }
 
   test("equals") {

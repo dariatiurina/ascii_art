@@ -8,10 +8,7 @@ class ImageTest extends AnyFunSuite {
     val imageTest = ImageRGB()
     val rowAppend = ImageRowRGB(List(PixelRGB(0, 0, 0)))
     val imageRight = ImageRGB(List(rowAppend))
-    imageTest.appendRow(rowAppend)
-    println(imageRight)
-    println(imageTest)
-    assert(imageRight == imageTest)
+    assert(imageRight == imageTest.appendRow(rowAppend))
   }
 
   test("image-equals") {
@@ -23,31 +20,6 @@ class ImageTest extends AnyFunSuite {
     assert(imageTest1 == imageTest2)
     assert(imageTest1 != imageTest3)
     assert(imageTest2 != imageTest3)
-  }
-
-  test("flip-image-correct") {
-    val row1 = ImageRowRGB(List(PixelRGB(0, 0, 0)))
-    val row2 = ImageRowRGB(List(PixelRGB(255, 255, 255)))
-    val imageTest1 = ImageRGB(List(row1, row2))
-    val imageTest2 = ImageRGB(List(row2, row1))
-    imageTest1.flipImage()
-    assert(imageTest1 == imageTest2)
-  }
-
-  test("flip-image-empty") {
-    val imageTest1 = ImageRGB()
-    val imageTest2 = ImageRGB()
-    imageTest1.flipImage()
-    assert(imageTest1 == imageTest2)
-  }
-
-  test("flip-rows-correct") {
-    val row1 = ImageRowRGB(List(PixelRGB(0, 0, 0), PixelRGB(255, 255, 255)))
-    val row2 = ImageRowRGB(List(PixelRGB(255, 255, 255), PixelRGB(0, 0, 0)))
-    val imageTest1 = ImageRGB(List(row1, row2))
-    val imageTest2 = ImageRGB(List(row1, row2))
-    imageTest1.flipRows()
-    assert(imageTest1 == imageTest2)
   }
 
   test("get-row-correct") {

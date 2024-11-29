@@ -6,7 +6,11 @@ import Modules.Converters.ConvertImageToGreyScale
 
 class ASCIIArtController(ui: ASCIIArtView) {
   def run(commandLine: Seq[String]): Unit =
-    val commands = CommandParser(commandLine).parseCommands()
-    CommandRunner(commands).runAll()
+    try {
+      val commands = CommandParser(commandLine).parseCommands()
+      CommandRunner(commands).runAll()
+    }
+    catch
+      case e: Exception => ui.displayErrorMessage(e.getMessage)
 }
 
