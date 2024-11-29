@@ -49,6 +49,7 @@ class MainTransformationTableFactory(
           linearTransformTableFactory.returnTransformationTable(parameter)
         case "non-linear" =>
           nonLinearTransformTableFactory.returnTransformationTable(parameter)
+        case _ => throw NotKnownTransformationTable()
       } else if (tableType == "--custom-table")
       customLinearTableFactory.returnTransformationTable(parameter)
     else

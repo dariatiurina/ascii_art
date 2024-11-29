@@ -1,6 +1,7 @@
 package Factories
 
-import Modules.Exporters.{ExporterImage, ExporterToFile, ExporterToConsole}
+import Exceptions.NotKnownExportOption
+import Modules.Exporters.{ExporterImage, ExporterToConsole, ExporterToFile}
 
 trait ExportFactory {
   def returnExport(parameter: String = ""): ExporterImage
@@ -21,10 +22,11 @@ class MainExportFactory(
     new ExporterToFileFactory(),
   private val exporterToConsoleFactory: ExporterToConsoleFactory =
     new ExporterToConsoleFactory()) {
-  def create(exportType: String, parameter: String): ExporterImage =
+  def create(exportType: String, parameter: String = ""): ExporterImage =
     exportType match {
       case "--output-file" => exporterToFileFactory.returnExport(parameter)
       case "--output-console" =>
         exporterToConsoleFactory.returnExport(parameter)
+      case _ => throw NotKnownExportOption()  
     }
 }

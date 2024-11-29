@@ -21,5 +21,9 @@ case class NotKnownImageFormat(
     extends Exception(message)
 
 case class NotKnownCommand(
-                                private val message: String = "This command is not known")
-  extends Exception(message)
+  private val message: String = "This command is not known")
+    extends Exception(message)
+
+case class NotKnownExportOption(
+  private val message: String = "This export option is not known")
+    extends Exception(message)
