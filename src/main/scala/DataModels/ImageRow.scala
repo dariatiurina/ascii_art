@@ -42,11 +42,11 @@ trait ImageRow[T <: Pixel](private var pixels: List[T]) {
   }
 }
 
-class ImageRowRGB(pixels: List[PixelRGB] = List.empty)
+class ImageRowRGB(private var pixels: List[PixelRGB] = List.empty)
     extends ImageRow[PixelRGB](pixels)
 
-class ImageRowGreyScale(pixels: List[PixelGreyScale] = List.empty)
+class ImageRowGreyScale(private var pixels: List[PixelGreyScale] = List.empty)
     extends ImageRow[PixelGreyScale](pixels)
 
-class ImageRowASCII(pixels: List[PixelASCII] = List.empty)
+class ImageRowASCII(private var pixels: List[PixelASCII] = List.empty)
     extends ImageRow[PixelASCII](pixels)

@@ -2,7 +2,7 @@ package DataModels
 
 trait Image[T <: ImageRow[?]](protected var rows: List[T]) {
   def apply(): Image[?] = new Image(List.empty) {}
-  
+
   def flipImage(): Unit =
     rows = rows.reverse
 
@@ -36,11 +36,11 @@ trait Image[T <: ImageRow[?]](protected var rows: List[T]) {
   }
 }
 
-case class ImageRGB(pixels: List[ImageRowRGB] = List.empty)
+case class ImageRGB(private var pixels: List[ImageRowRGB] = List.empty)
     extends Image[ImageRowRGB](pixels)
 
-case class ImageGreyScale(pixels: List[ImageRowGreyScale] = List.empty)
+case class ImageGreyScale(private var pixels: List[ImageRowGreyScale] = List.empty)
     extends Image[ImageRowGreyScale](pixels)
 
-case class ImageASCII(pixels: List[ImageRowASCII] = List.empty)
+case class ImageASCII(private var pixels: List[ImageRowASCII] = List.empty)
     extends Image[ImageRowASCII](pixels)

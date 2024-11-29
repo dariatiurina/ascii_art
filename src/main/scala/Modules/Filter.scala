@@ -22,13 +22,11 @@ class FilterFlip(axis: Axis) extends FilterASCII {
   }
 
   private def flipY(image: ImageASCII): ImageASCII = {
-    val imageRet = image.copy()
-    imageRet.flipRows()
-    imageRet
+    image.flipRows()
+    image
   }
 
   private def flipX(image: ImageASCII): ImageASCII = {
-    val imageRet = image.copy()
     image.flipImage()
     image
   }
