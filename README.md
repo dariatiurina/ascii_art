@@ -1,8 +1,5 @@
 # ASCII Art
 
-[![pipeline status](https://gitlab.fit.cvut.cz/BI-OOP/B241/asciiart/badges/master/pipeline.svg)](https://gitlab.fit.cvut.cz/BI-OOP/B241/asciiart)
-
-
 Implemented Filters:
 - invert
 - brightness
